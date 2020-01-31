@@ -77,7 +77,7 @@ public class BirdController : MonoBehaviour
         // float clampedMinX = Mathf.Clamp(minX, -7, 7);
         float clampedMaxX = 7;
         float clampedMinX = -7;
-        float distanceX = _speed * _sequenceDirection * Time.deltaTime;
+        float distanceX = _diveSpeed * _sequenceDirection * Time.deltaTime;
         var x = Mathf.Clamp(transform.position.x + distanceX, clampedMinX, clampedMaxX);
         var y = Mathf.Min(_initialY, transform.position.y + Mathf.Sign(_initialY - transform.position.y) * Time.deltaTime * _diveSpeed / 2);
         SetPosition(new Vector3(x, y, 0));

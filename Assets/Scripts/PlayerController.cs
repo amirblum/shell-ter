@@ -24,8 +24,10 @@ public class PlayerController : MonoBehaviour
         }
     }
     private bool _isInShell = true;
+    private bool _wantsToBeInShell = true;
     private bool _shellForced;
     [SerializeField] float _shellForcedTime;
+    [SerializeField] float _shellEnterTime;
 
     [Header("Controls")]
     [SerializeField] KeyCode _forwardKey;
@@ -51,19 +53,24 @@ public class PlayerController : MonoBehaviour
     {
         if (_shellForced) return;
 
-        var wasInShell = IsInShell;
+        var wasOutOfShell = !IsInShell;
 
-        IsInShell = !Input.GetKey(_forwardKey);
+        _wantsToBeInShell = !Input.GetKey(_forwardKey);
 
-        if (!wasInShell && IsInShell)
+        if (wasOutOfShell && _wantsToBeInShell)
         {
             StartCoroutine(HideStuckCoroutine());
         }
+        else if (!_wantsToBeInShell)
+        {
+            IsInShell = false;
+        }
+
     }
 
     protected void FixedUpdate()
     {
-        if (!IsInShell)
+        if (!_wantsToBeInShell)
         {
             var directionMultiplier = _facingRight ? -1f : 1f;
             var rightAverage = (transform.right + Vector3.right).normalized;
@@ -102,7 +109,8 @@ public class PlayerController : MonoBehaviour
     private IEnumerator HideStuckCoroutine()
     {
         _shellForced = true;
-        yield return new WaitForSeconds(_shellForcedTime / 2);
+        yield return new WaitForSeconds(_shellEnterTime);
+        IsInShell = true;
         _shellForced = false;
     }
 }

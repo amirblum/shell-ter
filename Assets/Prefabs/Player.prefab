@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shellForcedTime: 2.5
+  _shellEnterTime: 0.5
   _forwardKey: 0
   _breakShellKey: 0
   _facingRight: 0

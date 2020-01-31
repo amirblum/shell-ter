@@ -620,12 +620,12 @@ PrefabInstance:
     - target: {fileID: 5161064861306411118, guid: ec88de4dce4ed444e86ebf434ff072f7,
         type: 3}
       propertyPath: _speed
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5161064861306411118, guid: ec88de4dce4ed444e86ebf434ff072f7,
         type: 3}
       propertyPath: _diveSpeed
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5368223963019631004, guid: ec88de4dce4ed444e86ebf434ff072f7,
         type: 3}
