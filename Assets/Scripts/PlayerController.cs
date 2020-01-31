@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Spine.Unity;
 using UnityEngine;
@@ -70,6 +70,8 @@ public class PlayerController : MonoBehaviour
 
     protected void FixedUpdate()
     {
+        if (_shellForced) return;
+
         if (!_wantsToBeInShell)
         {
             var directionMultiplier = _facingRight ? -1f : 1f;
