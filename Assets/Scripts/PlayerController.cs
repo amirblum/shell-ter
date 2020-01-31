@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Controls")]
+    [SerializeField] KeyCode _forwardKey;
+    [SerializeField] KeyCode _breakShellKey;
 
-    // Update is called once per frame
-    void Update()
+    [Header("Movement")]
+    [SerializeField] float _forwardSpeed;
+    [SerializeField] Vector3 _forwardDirection;
+
+    protected void Update()
     {
-        
+        if (Input.GetKey(_forwardKey))
+        {
+            transform.position += _forwardDirection * _forwardSpeed * Time.deltaTime;
+        }
+
     }
 }
