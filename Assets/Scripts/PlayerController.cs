@@ -4,7 +4,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool IsInShell { get; private set; }
+    public bool IsInShell
+    {
+        get
+        {
+            return _isInShell;
+        }        
+        private set
+        {
+            _isInShell = value;
+            _exposedState.SetActive(!_isInShell);
+            _shellState.SetActive(_isInShell);
+        }
+    }
+    private bool _isInShell;
 
     [Header("Controls")]
     [SerializeField] KeyCode _forwardKey;
@@ -13,6 +26,11 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] bool _facingRight;
     [SerializeField] float _forwardThrust;
+
+    [Header("States")]
+    [SerializeField] GameObject _exposedState;
+    [SerializeField] GameObject _shellState;
+    [SerializeField] GameObject _hitState;
 
     private Rigidbody2D _rigidbody;
 
@@ -34,6 +52,5 @@ public class PlayerController : MonoBehaviour
             var rightAverage = (transform.right + Vector3.right).normalized;
             _rigidbody.AddForce(rightAverage * _forwardThrust * directionMultiplier);
         }
-        
     }
 }
