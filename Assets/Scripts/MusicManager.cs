@@ -9,23 +9,19 @@ public class MusicManager : MonoBehaviour
     public float slopeIntensity = 0;
 
 
-    public enum States{
+    public enum States
+    {
         STOP = 0,
         ONE_IS_MOVING = 1,
         BOTH_MOVING = 2,
         WIN_STATE = 3
-	}
+    }
 
     //[Serializeable]
     public States requestedState = States.STOP;
     States currState;
 
-
-    [FMODUnity.EventRef]
-    public string MusicStateEvent = "";
-    public string intensityEvent = "";
-    public string stateEvent = "";
-    FMOD.Studio.EventInstance musicState;
+    private FMOD.Studio.EventInstance instance_e;
 
     FMOD.Studio.PARAMETER_ID intensityParamID;
     FMOD.Studio.PARAMETER_ID stateParamID;
@@ -34,31 +30,30 @@ public class MusicManager : MonoBehaviour
     void Start()
     {
         currState = requestedState;
+        //// Create and initialize the FMOD instance
+        instance_e = FMODUnity.RuntimeManager.CreateInstance("event:/ShellMusic");
+        instance_e.start();
 
-        // Create and initialize the FMOD instance
-        musicState = FMODUnity.RuntimeManager.CreateInstance(MusicStateEvent);
-        musicState.start();
-
-        //Chace a handle to the intesity parameter
-        FMOD.Studio.EventDescription intensityEventDescription = FMODUnity.RuntimeManager.GetEventDescription(stateEvent);
+        ////Chace a handle to the intesity parameter
+        FMOD.Studio.EventDescription ShellMusicDescription = FMODUnity.RuntimeManager.GetEventDescription("event:/ShellMusic");
         FMOD.Studio.PARAMETER_DESCRIPTION intensityParameterDescription;
-        intensityEventDescription.getParameterDescriptionByName("intensity", out intensityParameterDescription);
+        ShellMusicDescription.getParameterDescriptionByName("Intensity", out intensityParameterDescription);
         intensityParamID = intensityParameterDescription.id;
 
-        //Chace a handle to the state parameter
-        FMOD.Studio.EventDescription stateEventDescription = FMODUnity.RuntimeManager.GetEventDescription(stateEvent);
+        ////Chace a handle to the state parameter
         FMOD.Studio.PARAMETER_DESCRIPTION stateParameterDescription;
-        stateEventDescription.getParameterDescriptionByName("state", out stateParameterDescription);
+        ShellMusicDescription.getParameterDescriptionByName("GameMusicState", out stateParameterDescription);
         stateParamID = stateParameterDescription.id;
     }
 
     // Update is called once per frame
     void Update()
     {
-        musicState.setParameterByID(intensityParamID, (float)slopeIntensity);
-        if(requestedState != currState)
-		{
-            musicState.setParameterByID(stateParamID, (uint)currState);
-		}
+        instance_e.setParameterByID(intensityParamID, (float)slopeIntensity);
+        if (requestedState != currState)
+        {
+            currState = requestedState;
+            instance_e.setParameterByID(stateParamID, (uint)currState);
+        }
     }
 }
