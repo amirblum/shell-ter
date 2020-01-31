@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Spine.Unity;
 using UnityEngine;
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
             if (wasInShell != _isInShell)
             {
                 _graphics.loop = !IsInShell;
-                _graphics.AnimationName = _isInShell ? "Hide" : "Crawl";
+                _graphics.AnimationName = _isInShell ? "Hide Idle" : "Crawl";
             }
         }
     }
@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
     private bool _shellForced;
     [SerializeField] float _shellForcedTime;
     [SerializeField] float _shellEnterTime;
+
+    [Header("Defense/Hit")]
+    [SerializeField] SpriteRenderer _slash;
 
     [Header("Controls")]
     [SerializeField] KeyCode _forwardKey;
@@ -47,6 +50,7 @@ public class PlayerController : MonoBehaviour
     protected void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _slash.enabled = false;
     }
 
     protected void Update()
@@ -89,6 +93,7 @@ public class PlayerController : MonoBehaviour
         if (IsInShell) return;
 
         StartCoroutine(HitCoroutine());
+        StartCoroutine(SlashCoroutine());
     }
 
     private IEnumerator HitCoroutine()
@@ -108,10 +113,31 @@ public class PlayerController : MonoBehaviour
         _defaultCollider.gameObject.SetActive(true);
     }
 
+    private IEnumerator SlashCoroutine()
+    {
+        var slashTime = _shellForcedTime / 8f;
+
+        _slash.enabled = true;
+        yield return new WaitForSeconds(slashTime / 3f);
+        _slash.enabled = false;
+        yield return new WaitForSeconds(slashTime / 3f);
+        _slash.enabled = true;
+        yield return new WaitForSeconds(slashTime / 3f);
+        _slash.enabled = false;
+    }
+
     private IEnumerator HideStuckCoroutine()
     {
         _shellForced = true;
+        
+        _graphics.loop = false;
+        _graphics.timeScale = 0.2f;
+        _graphics.AnimationName = "Hide In";
+
         yield return new WaitForSeconds(_shellEnterTime);
+
+        _graphics.timeScale = 1f;
+
         IsInShell = true;
         _shellForced = false;
     }
