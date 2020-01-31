@@ -15,12 +15,12 @@ PrefabInstance:
     - target: {fileID: 459595541064626259, guid: 3ce9be4d7d25ec941821d89caa246b1c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -7.5
       objectReference: {fileID: 0}
     - target: {fileID: 459595541064626259, guid: 3ce9be4d7d25ec941821d89caa246b1c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 459595541064626259, guid: 3ce9be4d7d25ec941821d89caa246b1c,
         type: 3}
@@ -95,6 +95,16 @@ PrefabInstance:
     - target: {fileID: 3598854870438726873, guid: 3ce9be4d7d25ec941821d89caa246b1c,
         type: 3}
       propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783131071566355682, guid: 3ce9be4d7d25ec941821d89caa246b1c,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885871994506206220, guid: 3ce9be4d7d25ec941821d89caa246b1c,
+        type: 3}
+      propertyPath: initialFlipX
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8148647983251363915, guid: 3ce9be4d7d25ec941821d89caa246b1c,

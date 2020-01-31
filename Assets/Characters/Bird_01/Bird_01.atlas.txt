@@ -1,0 +1,55 @@
+
+Bird_01.png
+size: 185,480
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Beak
+  rotate: false
+  xy: 6, 96
+  size: 59, 98
+  orig: 63, 102
+  offset: 2, 2
+  index: -1
+Body
+  rotate: false
+  xy: 6, 201
+  size: 173, 272
+  orig: 175, 275
+  offset: 1, 1
+  index: -1
+L Eye
+  rotate: false
+  xy: 71, 7
+  size: 52, 72
+  orig: 54, 76
+  offset: 1, 2
+  index: -1
+Leg
+  rotate: false
+  xy: 129, 20
+  size: 31, 59
+  orig: 34, 62
+  offset: 2, 1
+  index: -1
+R eye
+  rotate: false
+  xy: 6, 20
+  size: 59, 69
+  orig: 62, 73
+  offset: 2, 1
+  index: -1
+Wing down
+  rotate: false
+  xy: 71, 86
+  size: 105, 50
+  orig: 107, 53
+  offset: 1, 1
+  index: -1
+Wing up
+  rotate: false
+  xy: 71, 143
+  size: 104, 51
+  orig: 108, 55
+  offset: 2, 2
+  index: -1

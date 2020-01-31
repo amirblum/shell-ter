@@ -1,0 +1,48 @@
+
+Snail.png
+size: 262,186
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+P1/Body Bottom
+  rotate: false
+  xy: 6, 7
+  size: 172, 46
+  orig: 172, 46
+  offset: 0, 0
+  index: -1
+P1/Body Top
+  rotate: false
+  xy: 139, 69
+  size: 75, 110
+  orig: 75, 110
+  offset: 0, 0
+  index: -1
+P1/Eye1 B
+  rotate: false
+  xy: 220, 138
+  size: 36, 41
+  orig: 39, 44
+  offset: 2, 2
+  index: -1
+P1/Eye1 F
+  rotate: false
+  xy: 220, 90
+  size: 36, 41
+  orig: 39, 44
+  offset: 2, 2
+  index: -1
+P1/Feeler
+  rotate: false
+  xy: 220, 58
+  size: 29, 25
+  orig: 29, 25
+  offset: 0, 0
+  index: -1
+P1/Shell_01_01
+  rotate: false
+  xy: 6, 60
+  size: 127, 119
+  orig: 129, 122
+  offset: 1, 2
+  index: -1

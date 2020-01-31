@@ -13,8 +13,8 @@ public class PlayerController : MonoBehaviour
         private set
         {
             _isInShell = value;
-            _exposedState.SetActive(!_isInShell);
-            _shellState.SetActive(_isInShell);
+            // _exposedState.SetActive(!_isInShell);
+            // _shellState.SetActive(_isInShell);
         }
     }
     private bool _isInShell;
