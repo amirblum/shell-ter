@@ -1,9 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool IsInShell { get; private set; }
+
     [Header("Controls")]
     [SerializeField] KeyCode _forwardKey;
     [SerializeField] KeyCode _breakShellKey;
