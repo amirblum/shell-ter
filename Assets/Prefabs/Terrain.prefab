@@ -148,7 +148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6570424553108750407}
   m_Layer: 0
-  m_Name: Mountain
+  m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,7 +227,7 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.31824774, y: 1.3824625}
+    - - {x: 0.1168924, y: 2.078054}
       - {x: -0.08988682, y: 1.4257798}
       - {x: -0.3755325, y: 0.4821024}
       - {x: -0.778903, y: -0.40114307}
