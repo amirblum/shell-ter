@@ -56,3 +56,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f00ce3b1055510d458fed1cb32802680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slopeIntensity: 0
+  _players:
+  - {fileID: 0}
+  - {fileID: 0}
+  _maxY: 4
+  requestedState: 0
