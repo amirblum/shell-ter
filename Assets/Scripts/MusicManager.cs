@@ -2,14 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMOD;
 
 public class MusicManager : MonoBehaviour
 {
     [Range(0, 1)]
     public float slopeIntensity = 0;
 
+    [SerializeField] PlayerController[] _players;
+    [SerializeField] float _maxY = 4.0f;
 
-    public enum States
+    public enum State
     {
         STOP = 0,
         ONE_IS_MOVING = 1,
@@ -18,8 +21,8 @@ public class MusicManager : MonoBehaviour
     }
 
     //[Serializeable]
-    public States requestedState = States.STOP;
-    States currState;
+    public State requestedState = State.STOP;
+    State currState;
 
     private FMOD.Studio.EventInstance instance_e;
 
@@ -49,7 +52,21 @@ public class MusicManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        instance_e.setParameterByID(intensityParamID, (float)slopeIntensity);
+        int numOutOfShell = 0;
+        float sumY = 0;
+
+        foreach (var player in _players)
+        {
+            if (!player.IsInShell)
+            {
+                numOutOfShell++;
+            }
+            sumY += player.transform.position.y;
+        }
+        requestedState = (State)numOutOfShell;
+        slopeIntensity = Mathf.Min(1, (sumY / _players.Length) / _maxY);
+        instance_e.setParameterByID(intensityParamID, slopeIntensity);
+        UnityEngine.Debug.Log($"slope intensity: {slopeIntensity}");
         if (requestedState != currState)
         {
             currState = requestedState;
