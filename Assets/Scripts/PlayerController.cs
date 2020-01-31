@@ -10,15 +10,17 @@ public class PlayerController : MonoBehaviour
         get
         {
             return _isInShell;
-        }        
+        }
         private set
         {
             _isInShell = value;
-            _graphics.AnimationName =_isInShell ? "Hide" : "Crawl";
+            _graphics.AnimationName = _isInShell ? "Hide" : "Crawl";
             _graphics.loop = !IsInShell;
         }
     }
     private bool _isInShell;
+    private bool _shellForced;
+    [SerializeField] float _shellForcedTime;
 
     [Header("Controls")]
     [SerializeField] KeyCode _forwardKey;
@@ -30,9 +32,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("States")]
     [SerializeField] SkeletonAnimation _graphics;
-    [SerializeField] GameObject _exposedState;
-    [SerializeField] GameObject _shellState;
-    [SerializeField] GameObject _hitState;
+    [SerializeField] Collider2D _defaultCollider;
+    [SerializeField] Collider2D _hitCollider;
 
     private Rigidbody2D _rigidbody;
 
@@ -43,6 +44,8 @@ public class PlayerController : MonoBehaviour
 
     protected void Update()
     {
+        if (_shellForced) return;
+
         IsInShell = !Input.GetKey(_forwardKey);
     }
 
@@ -54,5 +57,33 @@ public class PlayerController : MonoBehaviour
             var rightAverage = (transform.right + Vector3.right).normalized;
             _rigidbody.AddForce(rightAverage * _forwardThrust * directionMultiplier);
         }
+    }
+
+    protected void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (IsInShell) return;
+
+        var bird = collider.gameObject.GetComponentInParent<BirdController>();
+        if (bird != null)
+        {
+            StartCoroutine(HitCoroutine());
+        }
+    }
+
+    private IEnumerator HitCoroutine()
+    {
+        IsInShell = true;
+        _defaultCollider.gameObject.SetActive(false);
+        _hitCollider.gameObject.SetActive(true);
+        var oldGravity = _rigidbody.gravityScale;
+        _rigidbody.gravityScale = 1f;
+        _shellForced = true;
+
+        yield return new WaitForSeconds(_shellForcedTime);
+
+        _shellForced = false;
+        _rigidbody.gravityScale = oldGravity;
+        _hitCollider.gameObject.SetActive(false);
+        _defaultCollider.gameObject.SetActive(true);
     }
 }
