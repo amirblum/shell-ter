@@ -18,7 +18,11 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(_forwardKey))
         {
-            transform.position += _forwardDirection * _forwardSpeed * Time.deltaTime;
+            IsInShell = false;
+        }
+        else
+        {
+            IsInShell = true;
         }
 
     }
