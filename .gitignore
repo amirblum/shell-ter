@@ -61,3 +61,8 @@ crashlytics-build.properties
 
 # Custom ignores
 Spine Examples*
+
+# FMOD
+/Assets/FMODStudioCache.asset
+fmod.log
+fmod_editor.log
