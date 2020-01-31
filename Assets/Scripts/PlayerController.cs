@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Spine.Unity;
 using UnityEngine;
@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
         _defaultCollider.gameObject.SetActive(false);
         _hitCollider.gameObject.SetActive(true);
         var oldGravity = _rigidbody.gravityScale;
-        _rigidbody.gravityScale = 1f;
+        _rigidbody.gravityScale = 2f;
         _shellForced = true;
 
         yield return new WaitForSeconds(_shellForcedTime);
