@@ -13,12 +13,17 @@ public class PlayerController : MonoBehaviour
         }
         private set
         {
+            var wasInShell = _isInShell;
             _isInShell = value;
-            _graphics.AnimationName = _isInShell ? "Hide" : "Crawl";
-            _graphics.loop = !IsInShell;
+
+            if (wasInShell != _isInShell)
+            {
+                _graphics.loop = !IsInShell;
+                _graphics.AnimationName = _isInShell ? "Hide" : "Crawl";
+            }
         }
     }
-    private bool _isInShell;
+    private bool _isInShell = true;
     private bool _shellForced;
     [SerializeField] float _shellForcedTime;
 
@@ -46,7 +51,14 @@ public class PlayerController : MonoBehaviour
     {
         if (_shellForced) return;
 
+        var wasInShell = IsInShell;
+
         IsInShell = !Input.GetKey(_forwardKey);
+
+        if (!wasInShell && IsInShell)
+        {
+            StartCoroutine(HideStuckCoroutine());
+        }
     }
 
     protected void FixedUpdate()
@@ -85,5 +97,12 @@ public class PlayerController : MonoBehaviour
         _rigidbody.gravityScale = oldGravity;
         _hitCollider.gameObject.SetActive(false);
         _defaultCollider.gameObject.SetActive(true);
+    }
+
+    private IEnumerator HideStuckCoroutine()
+    {
+        _shellForced = true;
+        yield return new WaitForSeconds(_shellForcedTime / 2);
+        _shellForced = false;
     }
 }
