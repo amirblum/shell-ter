@@ -94,7 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skeletonDataAsset: {fileID: 11400000, guid: 7d4f5d89051243e47acf21ce4275cb98, type: 2}
   initialSkinName: 
-  initialFlipX: 0
+  initialFlipX: 1
   initialFlipY: 0
   separatorSlotNames: []
   zSpacing: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: animation
+  _animationName: Idle
   loop: 1
   timeScale: 1
 --- !u!1 &3255332703732815972
@@ -163,6 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _players: []
   _speed: 3
+  _diveSpeed: 20
 --- !u!1 &3836113672046737621
 GameObject:
   m_ObjectHideFlags: 0
