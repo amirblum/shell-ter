@@ -8,6 +8,9 @@ public class BirdController : MonoBehaviour
     private float _sequenceDirection = 1;
     private float _initialY;
     [SerializeField] float _speed = 3f;
+    [SerializeField] float _diveSpeed = 20f;
+    bool _canTarget = true;
+    PlayerController _target = null;
 
     void Awake()
     {
@@ -17,30 +20,40 @@ public class BirdController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerController closestPlayer = null;
-        float distanceToClosestPlayer = 9999; // Largest number imaginable to man
-        foreach (var player in _players)
+        if (_canTarget && _target == null)
         {
-            if (player.IsInShell)
+            PlayerController closestPlayer = null;
+            float distanceToClosestPlayer = 9999; // Largest number imaginable to man
+            foreach (var player in _players)
             {
-                continue;
+                if (player.IsInShell)
+                {
+                    continue;
+                }
+                var distance = Vector3.Distance(transform.position, player.transform.position);
+                if (distance < distanceToClosestPlayer)
+                {
+                    distanceToClosestPlayer = distance;
+                    closestPlayer = player;
+                }
             }
-            var distance = Vector3.Distance(transform.position, player.transform.position);
-            if (distance < distanceToClosestPlayer)
-            {
-                distanceToClosestPlayer = distance;
-                closestPlayer = player;
-            }
+            _target = closestPlayer;
+            _canTarget = false;
         }
-        if (closestPlayer == null)
+        if (_target == null)
         {
             Hover();
         }
         else
         {
             // TODO: consider avoiding the mountain
-            SetPosition(transform.position + Vector3.Normalize(closestPlayer.transform.position - transform.position) * _speed * Time.deltaTime);
+            SetPosition(transform.position + Vector3.Normalize(_target.transform.position - transform.position) * _diveSpeed * Time.deltaTime);
         }
+    }
+
+    public void ResetTarget()
+    {
+        _target = null;
     }
 
     private void SetPosition(Vector3 position)
@@ -60,16 +73,22 @@ public class BirdController : MonoBehaviour
             maxX = Mathf.Max(maxX, player.transform.position.x);
             minX = Mathf.Min(minX, player.transform.position.x);
         }
-        float clampedMaxX = Mathf.Clamp(maxX, -7, 7);
-        float clampedMinX = Mathf.Clamp(minX, -7, 7);
+        // float clampedMaxX = Mathf.Clamp(maxX, -7, 7);
+        // float clampedMinX = Mathf.Clamp(minX, -7, 7);
+        float clampedMaxX = 7;
+        float clampedMinX = -7;
         float distanceX = _speed * _sequenceDirection * Time.deltaTime;
         var x = Mathf.Clamp(transform.position.x + distanceX, clampedMinX, clampedMaxX);
-        var y = transform.position.y + Mathf.Sign(_initialY - transform.position.y) * Time.deltaTime * _speed;
+        var y = Mathf.Min(_initialY, transform.position.y + Mathf.Sign(_initialY - transform.position.y) * Time.deltaTime * _diveSpeed / 2);
         SetPosition(new Vector3(x, y, 0));
 
         if (x == clampedMinX || x == clampedMaxX)
         {
             _sequenceDirection *= -1;
+            if (y == _initialY)
+            {
+                _canTarget = true;
+            }
         }
     }
 }

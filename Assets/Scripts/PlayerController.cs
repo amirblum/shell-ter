@@ -73,13 +73,13 @@ public class PlayerController : MonoBehaviour
 
     protected void OnTriggerEnter2D(Collider2D collider)
     {
+        var bird = collider.gameObject.GetComponentInParent<BirdController>();
+        if (bird == null) return;
+        bird.ResetTarget();
+
         if (IsInShell) return;
 
-        var bird = collider.gameObject.GetComponentInParent<BirdController>();
-        if (bird != null)
-        {
-            StartCoroutine(HitCoroutine());
-        }
+        StartCoroutine(HitCoroutine());
     }
 
     private IEnumerator HitCoroutine()
