@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Spine.Unity;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -13,8 +14,8 @@ public class PlayerController : MonoBehaviour
         private set
         {
             _isInShell = value;
-            // _exposedState.SetActive(!_isInShell);
-            // _shellState.SetActive(_isInShell);
+            _graphics.AnimationName =_isInShell ? "Hide" : "Crawl";
+            _graphics.loop = !IsInShell;
         }
     }
     private bool _isInShell;
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _forwardThrust;
 
     [Header("States")]
+    [SerializeField] SkeletonAnimation _graphics;
     [SerializeField] GameObject _exposedState;
     [SerializeField] GameObject _shellState;
     [SerializeField] GameObject _hitState;

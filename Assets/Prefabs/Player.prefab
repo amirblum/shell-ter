@@ -521,6 +521,7 @@ MonoBehaviour:
   _breakShellKey: 0
   _facingRight: 0
   _forwardThrust: 10
+  _graphics: {fileID: 7885871994506206220}
   _exposedState: {fileID: 9117380722131527713}
   _shellState: {fileID: 4398151987036776624}
   _hitState: {fileID: 5185030795425809848}
