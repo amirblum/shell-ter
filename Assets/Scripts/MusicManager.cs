@@ -66,7 +66,7 @@ public class MusicManager : MonoBehaviour
         requestedState = (State)numOutOfShell;
         slopeIntensity = Mathf.Min(1, (sumY / _players.Length) / _maxY);
         instance_e.setParameterByID(intensityParamID, slopeIntensity);
-        UnityEngine.Debug.Log($"slope intensity: {slopeIntensity}");
+        // UnityEngine.Debug.Log($"slope intensity: {slopeIntensity}");
         if (requestedState != currState)
         {
             currState = requestedState;
