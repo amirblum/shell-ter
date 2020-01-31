@@ -54,12 +54,20 @@ public class BirdController : MonoBehaviour
 
     private void Hover()
     {
+        float maxX = -9999;
+        float minX = 9999;
+        foreach (var player in _players) {
+            maxX = Mathf.Max(maxX, player.transform.position.x);
+            minX = Mathf.Min(minX, player.transform.position.x);
+        }
+        float clampedMaxX = Mathf.Clamp(maxX, -7, 7);
+        float clampedMinX = Mathf.Clamp(minX, -7, 7);
         float distanceX = _speed * _sequenceDirection * Time.deltaTime;
-        var x = Mathf.Clamp(transform.position.x + distanceX, -7, 7);
+        var x = Mathf.Clamp(transform.position.x + distanceX, clampedMinX, clampedMaxX);
         var y = transform.position.y + Mathf.Sign(_initialY - transform.position.y) * Time.deltaTime * _speed;
         SetPosition(new Vector3(x, y, 0));
 
-        if (Mathf.Abs(x) == 7)
+        if (x == clampedMinX || x == clampedMaxX)
         {
             _sequenceDirection *= -1;
         }
