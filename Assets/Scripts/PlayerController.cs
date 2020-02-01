@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
 
             if (wasInShell != _isInShell)
             {
+                _defaultCollider.gameObject.SetActive(!_isInShell);
+                _hitCollider.gameObject.SetActive(_isInShell);
                 _graphics.loop = !IsInShell;
                 _graphics.AnimationName = _isInShell ? "Hide Idle" : "Crawl";
             }
@@ -73,14 +75,13 @@ public class PlayerController : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        if (_shellForced) return;
-
-        if (!_wantsToBeInShell)
-        {
-            var directionMultiplier = _facingRight ? -1f : 1f;
-            var rightAverage = (transform.right + Vector3.right).normalized;
-            _rigidbody.AddForce(rightAverage * _forwardThrust * directionMultiplier);
-        }
+        if (_shellForced || _wantsToBeInShell) return;
+        var directionMultiplier = _facingRight ? -1f : 1f;
+        var rot = _rigidbody.rotation;
+        rot = rot - 360 * Mathf.Floor(rot / 360);
+        if (rot > 90 && rot < 300) _rigidbody.SetRotation(0);
+        var rightAverage = (transform.right + Vector3.right).normalized;
+        _rigidbody.AddForce(rightAverage * _forwardThrust * directionMultiplier);
     }
 
     protected void OnTriggerEnter2D(Collider2D collider)
@@ -98,18 +99,15 @@ public class PlayerController : MonoBehaviour
     private IEnumerator HitCoroutine()
     {
         IsInShell = true;
-        _defaultCollider.gameObject.SetActive(false);
-        _hitCollider.gameObject.SetActive(true);
         var oldGravity = _rigidbody.gravityScale;
         _rigidbody.gravityScale = 2f;
         _shellForced = true;
+        _wantsToBeInShell = true;
 
         yield return new WaitForSeconds(_shellForcedTime);
 
         _shellForced = false;
         _rigidbody.gravityScale = oldGravity;
-        _hitCollider.gameObject.SetActive(false);
-        _defaultCollider.gameObject.SetActive(true);
     }
 
     private IEnumerator SlashCoroutine()
