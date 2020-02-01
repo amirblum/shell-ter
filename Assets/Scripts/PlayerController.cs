@@ -18,8 +18,9 @@ public class PlayerController : MonoBehaviour
 
             if (wasInShell != _isInShell)
             {
-                _defaultCollider.gameObject.SetActive(!_isInShell);
-                _hitCollider.gameObject.SetActive(_isInShell);
+                var shouldUseHitCollider = _isInShell && !_shellForced;
+                _defaultCollider.gameObject.SetActive(!shouldUseHitCollider);
+                _hitCollider.gameObject.SetActive(shouldUseHitCollider);
                 _graphics.loop = !IsInShell;
                 _graphics.AnimationName = _isInShell ? "Hide Idle" : "Crawl";
             }
