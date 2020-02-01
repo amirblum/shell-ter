@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
         }
     }
     private bool _isInShell = false;
+    private bool _wasJustHit = false;
+    private Vector2 _upNormal = Vector2.up;
     private bool _wantsToBeInShell = true;
     private bool _shellForced;
     [SerializeField] float _shellForcedTime;
@@ -78,12 +80,23 @@ public class PlayerController : MonoBehaviour
     protected void FixedUpdate()
     {
         if (_shellForced || _wantsToBeInShell) return;
-        var directionMultiplier = _facingRight ? -1f : 1f;
-        var rot = _rigidbody.rotation;
-        rot = rot - 360 * Mathf.Floor(rot / 360);
-        if (rot > 90 && rot < 300) _rigidbody.SetRotation(0);
-        var rightAverage = (transform.right + Vector3.right).normalized;
-        _rigidbody.AddForce(rightAverage * _forwardThrust * directionMultiplier);
+        if (_wasJustHit)
+        {
+            transform.up = _upNormal;
+            _wasJustHit = false;
+        }
+        else
+        {
+            var directionMultiplier = _facingRight ? -1f : 1f;
+            var rightAverage = (transform.right + Vector3.right).normalized;
+            _rigidbody.AddForce(rightAverage * _forwardThrust * directionMultiplier);
+        }
+    }
+
+    protected void OnCollisionStay2D(Collision2D collision)
+    {
+        if (!(_wasJustHit && _hitCollider.gameObject.active)) return;
+        _upNormal /= collision.contacts[0].normal;
     }
 
     protected void OnTriggerEnter2D(Collider2D collider)
@@ -105,6 +118,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody.gravityScale = 2f;
         _shellForced = true;
         _wantsToBeInShell = true;
+        _wasJustHit = true;
 
         yield return new WaitForSeconds(_shellForcedTime);
 
