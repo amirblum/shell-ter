@@ -157,6 +157,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5282efb20d781d8489df1989de0b8244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1062960136 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2540459333515692619, guid: 02e174421e36aad468aef82c16c743db,
+    type: 3}
+  m_PrefabInstance: {fileID: 1247098608315425882}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1302415472 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2789217198969506217, guid: 529439a180d08e445abccf99b84d051c,
@@ -384,6 +390,11 @@ PrefabInstance:
     - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
         type: 3}
       propertyPath: _levelMax
+      value: 
+      objectReference: {fileID: 1062960136}
+    - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
+        type: 3}
+      propertyPath: _cameraLevelMax
       value: 
       objectReference: {fileID: 1247098608315425883}
     - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,

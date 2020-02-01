@@ -8,6 +8,7 @@ public class EmotionManager : MonoBehaviour
     [SerializeField] PlayerController[] _players;
     [SerializeField] float _yDistanctNeededToWin;
     [SerializeField] Transform _levelMax;
+    [SerializeField] Transform _cameraLevelMax;
     [SerializeField] float _intensityIncreaseBeginY = 1f;
 
     [SerializeField] MusicManager _musicManager;
@@ -68,12 +69,16 @@ public class EmotionManager : MonoBehaviour
             ? (averageY - _intensityIncreaseBeginY) / (_levelMax.position.y - _intensityIncreaseBeginY)
             : 0f;
 
+        var cameraSlopeIntensity = (averageY >= _intensityIncreaseBeginY)
+            ? (averageY - _intensityIncreaseBeginY) / (_cameraLevelMax.position.y - _intensityIncreaseBeginY)
+            : 0f;
+
         slopeIntensity = Mathf.Min(1, slopeIntensity);
         // Debug.Log(slopeIntensity);
 
         _musicManager.SetState(numOutOfShell, slopeIntensity);
         SetIntensity(slopeIntensity);
-        CameraZoom(slopeIntensity);
+        CameraZoom(cameraSlopeIntensity);
     }
 
     private void SetIntensity(float slopeIntensity)
