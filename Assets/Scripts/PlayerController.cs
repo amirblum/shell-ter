@@ -127,6 +127,8 @@ public class PlayerController : MonoBehaviour
         _shellForced = true;
         _wantsToBeInShell = true;
         _wasJustHit = true;
+        _graphics.loop = false;
+        _graphics.AnimationName = "DMG";
 
         yield return new WaitForSeconds(_shellForcedTime);
 

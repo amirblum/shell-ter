@@ -490,6 +490,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2789217198969506217, guid: 529439a180d08e445abccf99b84d051c,
+        type: 3}
+      propertyPath: _invincibilityDebug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755832729510868468, guid: 529439a180d08e445abccf99b84d051c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 04b843c694837cf4f94dbce3c1857de8, type: 2}
     - target: {fileID: 4401166989052116202, guid: 529439a180d08e445abccf99b84d051c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -654,6 +664,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040944474476514415, guid: 8b5be01b2a9a59645a7093bbacbe2d32,
+        type: 3}
+      propertyPath: _invincibilityDebug
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6797150130005391660, guid: 8b5be01b2a9a59645a7093bbacbe2d32,
         type: 3}
