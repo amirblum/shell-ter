@@ -12,6 +12,8 @@ public class BirdController : MonoBehaviour
     [SerializeField] float _speed = 3f;
     [SerializeField] float _diveSpeed = 20f;
     bool _canTarget = false;
+    bool _shouldGoAway = false;
+    bool _isGone = false;
     bool _shouldComeIntoScene = false;
     bool _cameIntoScene = false;
     bool _playedEnterSFX = false;
@@ -45,7 +47,21 @@ public class BirdController : MonoBehaviour
             _target = closestPlayer;
             _canTarget = false;
         }
-        if (!_shouldComeIntoScene)
+        if (_isGone)
+        {
+            return;
+        }
+        else if (_shouldGoAway)
+        {
+            float distance = _speed * Time.deltaTime;
+            float x = transform.position.x + distance;
+            SetPosition(new Vector3(x, transform.position.y, 0));
+            if (x >= 11)
+            {
+                _isGone  = true;
+            }
+        }
+        else if (!_shouldComeIntoScene)
         {
             foreach (var player in _players)
             {
@@ -120,5 +136,10 @@ public class BirdController : MonoBehaviour
                 _canTarget = true;
             }
         }
+    }
+
+    public void GoAway()
+    {
+        _shouldGoAway = true;
     }
 }

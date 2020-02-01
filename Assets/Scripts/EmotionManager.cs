@@ -6,6 +6,7 @@ using UnityEngine;
 public class EmotionManager : MonoBehaviour
 {
     [SerializeField] PlayerController[] _players;
+    [SerializeField] BirdController _bird;
     [SerializeField] float _yDistanctNeededToWin;
     [SerializeField] Transform _levelMax;
     [SerializeField] Transform _cameraLevelMax;
@@ -125,6 +126,7 @@ public class EmotionManager : MonoBehaviour
         }
 
         _musicManager.PlayEnding();
+        _bird.GoAway();
         var intensity = 1f;
         for (; intensity >= 0; intensity -= Time.deltaTime / _endingFadeTime)
         {
