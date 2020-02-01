@@ -892,6 +892,16 @@ PrefabInstance:
       propertyPath: _enterSFX
       value: 
       objectReference: {fileID: 8300000, guid: 33d944c05f753564db41aacefd32d32f, type: 3}
+    - target: {fileID: 5161064861306411118, guid: ec88de4dce4ed444e86ebf434ff072f7,
+        type: 3}
+      propertyPath: _speed
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5161064861306411118, guid: ec88de4dce4ed444e86ebf434ff072f7,
+        type: 3}
+      propertyPath: _diveSpeed
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8081386578481667562, guid: ec88de4dce4ed444e86ebf434ff072f7,
         type: 3}
       propertyPath: m_LocalPosition.x
