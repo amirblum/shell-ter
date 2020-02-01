@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] bool _facingRight;
     [SerializeField] float _forwardThrust;
+    private bool _forceForward;
 
     [Header("States")]
     [SerializeField] SkeletonAnimation _graphics;
@@ -73,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
         var wasOutOfShell = !_isInShell;
 
-        _wantsToBeInShell = !Input.GetKey(_forwardKey);
+        _wantsToBeInShell = !(Input.GetKey(_forwardKey) || _forceForward);
 
         if (wasOutOfShell && _wantsToBeInShell)
         {
@@ -111,15 +112,21 @@ public class PlayerController : MonoBehaviour
     {
         var bird = collider.gameObject.GetComponentInParent<BirdController>();
         if (bird == null) return;
+
         bird.ResetTarget();
 
         if (_isInShell || _invincibilityDebug) return;
 
-        StartCoroutine(HitCoroutine());
+        StartCoroutine(RollCoroutine());
         StartCoroutine(SlashCoroutine());
     }
 
-    private IEnumerator HitCoroutine()
+    public void RollBack()
+    {
+        StartCoroutine(RollCoroutine());
+    }
+
+    private IEnumerator RollCoroutine()
     {
         IsInShell = true;
         var oldGravity = _rigidbody.gravityScale;
@@ -172,5 +179,11 @@ public class PlayerController : MonoBehaviour
         _shellForced = true;
         _graphics.loop = true;
         _graphics.AnimationName = "LoveIdle";
+        _forceForward = false;
+    }
+
+    public void ForceForward()
+    {
+        _forceForward = true;
     }
 }

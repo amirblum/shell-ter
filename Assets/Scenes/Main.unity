@@ -286,7 +286,7 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1335369854658241483, guid: 02e174421e36aad468aef82c16c743db,
+    - target: {fileID: 2141044713503423475, guid: 02e174421e36aad468aef82c16c743db,
         type: 3}
       propertyPath: _emotionManager
       value: 

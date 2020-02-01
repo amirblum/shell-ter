@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +6,7 @@ using UnityEngine;
 public class EmotionManager : MonoBehaviour
 {
     [SerializeField] PlayerController[] _players;
+    [SerializeField] float _yDistanctNeededToWin;
     [SerializeField] Transform _levelMax;
     [SerializeField] float _intensityIncreaseBeginY = 1f;
 
@@ -27,6 +28,7 @@ public class EmotionManager : MonoBehaviour
     private Vector3 _cameraEndingPos;
 
     private bool _isInEnding;
+    private bool _bothPlayersReachedEnd;
 
     protected void Start()
     {
@@ -67,7 +69,7 @@ public class EmotionManager : MonoBehaviour
             : 0f;
 
         slopeIntensity = Mathf.Min(1, slopeIntensity);
-        Debug.Log(slopeIntensity);
+        // Debug.Log(slopeIntensity);
 
         _musicManager.SetState(numOutOfShell, slopeIntensity);
         SetIntensity(slopeIntensity);
@@ -93,11 +95,26 @@ public class EmotionManager : MonoBehaviour
         _cameraHolder.transform.position = Vector3.Lerp(_cameraDefaultPos, _cameraEndingPos, cameraZoomLerp);
     }
 
-    public void TriggerEnding()
+    public void PlayerReachedEnd(PlayerController player)
     {
-        if (_isInEnding) return;
+        // if (_bothPlayersReachedEnd) return;
 
-        StartCoroutine(EndingCoroutine());
+        // if (_isInEnding)
+        // {
+        //     PlayFinalEnding();
+        //     return;
+        // }
+
+        var playerYDistance = _players[0].transform.position.y - _players[1].transform.position.y;
+
+        if (playerYDistance <=_yDistanctNeededToWin)
+        {
+            StartCoroutine(EndingCoroutine());
+        }
+        else
+        {
+            player.RollBack();
+        }
     }
 
     private IEnumerator EndingCoroutine()
@@ -106,7 +123,7 @@ public class EmotionManager : MonoBehaviour
         
         foreach (var player in _players)
         {
-            player.StopPhysics();
+            player.ForceForward();
         }
 
         var intensity = 1f;
@@ -115,7 +132,17 @@ public class EmotionManager : MonoBehaviour
             yield return null;
             SetIntensity(intensity);
         }
-        
+    }
+
+    public void PlayFinalEnding()
+    {            
         _musicManager.PlayEnding();
+        
+        foreach (var player in _players)
+        {
+            player.StopPhysics();
+        }
+
+        // todo bird-go-away, clouds, etc.
     }
 }

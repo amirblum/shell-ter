@@ -47,6 +47,7 @@ MonoBehaviour:
   _players:
   - {fileID: 0}
   - {fileID: 0}
+  _yDistanctNeededToWin: 0.25
   _levelMax: {fileID: 0}
   _intensityIncreaseBeginY: 1
   _musicManager: {fileID: 2778069604788297002}

@@ -9,32 +9,13 @@ public class EndGame : MonoBehaviour
 
     [SerializeField] EmotionManager _emotionManager;
 
-    protected void OnCollisionEnter2D(Collision2D collision)
+    protected void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collision.gameObject.CompareTag("PlayerLeft"))
-        {
-            _playerLeftTouching = true;
-        }
-        else if (collision.gameObject.CompareTag("PlayerRight"))
-        {
-            _playerRightTouching = true;
-        }
+        var player = collider.gameObject.GetComponentInParent<PlayerController>();
 
-        if (_playerLeftTouching && _playerRightTouching)
+        if (player != null)
         {
-            _emotionManager.TriggerEnding();
-        }
-    }
-
-    protected void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("PlayerLeft"))
-        {
-            _playerLeftTouching = false;
-        }
-        else if (collision.gameObject.CompareTag("PlayerRight"))
-        {
-            _playerRightTouching = false;
+            _emotionManager.PlayerReachedEnd(player);
         }
     }
 }
