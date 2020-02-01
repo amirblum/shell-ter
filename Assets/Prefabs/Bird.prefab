@@ -164,8 +164,10 @@ MonoBehaviour:
   _players:
   - {fileID: 0}
   - {fileID: 0}
-  _speed: 5
-  _diveSpeed: 8
+  _audioSource: {fileID: 0}
+  _enterSFX: {fileID: 8300000, guid: 33d944c05f753564db41aacefd32d32f, type: 3}
+  _speed: 2.5
+  _diveSpeed: 6
 --- !u!1 &3836113672046737621
 GameObject:
   m_ObjectHideFlags: 0

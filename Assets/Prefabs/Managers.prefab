@@ -44,9 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5282efb20d781d8489df1989de0b8244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _uiController: {fileID: 0}
   _players:
   - {fileID: 0}
   - {fileID: 0}
+  _bird: {fileID: 0}
   _yDistanctNeededToWin: 0.25
   _levelMax: {fileID: 0}
   _cameraLevelMax: {fileID: 0}
@@ -54,8 +56,6 @@ MonoBehaviour:
   _musicManager: {fileID: 2778069604788297002}
   _cameraShake: {fileID: 0}
   _moodSprites:
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   _moodColor: {r: 1, g: 0.41037738, b: 0.7522041, a: 1}

@@ -127,12 +127,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3910627001114280602}
   m_PrefabAsset: {fileID: 0}
---- !u!212 &750119604 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 8231945189459128552, guid: 02e174421e36aad468aef82c16c743db,
-    type: 3}
-  m_PrefabInstance: {fileID: 1247098608315425882}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &763328070 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5040944474476514415, guid: 8b5be01b2a9a59645a7093bbacbe2d32,
@@ -208,12 +202,6 @@ AudioSource:
 --- !u!212 &1701590035 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2532125033618517240, guid: 02e174421e36aad468aef82c16c743db,
-    type: 3}
-  m_PrefabInstance: {fileID: 1247098608315425882}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &1804323222 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 2516811187898537372, guid: 02e174421e36aad468aef82c16c743db,
     type: 3}
   m_PrefabInstance: {fileID: 1247098608315425882}
   m_PrefabAsset: {fileID: 0}
@@ -334,6 +322,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
         type: 3}
+      propertyPath: _uiController
+      value: 
+      objectReference: {fileID: 823892838}
+    - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
+        type: 3}
       propertyPath: _players.Array.data[0]
       value: 
       objectReference: {fileID: 763328070}
@@ -342,6 +335,11 @@ PrefabInstance:
       propertyPath: _players.Array.data[1]
       value: 
       objectReference: {fileID: 1302415472}
+    - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
+        type: 3}
+      propertyPath: _bird
+      value: 
+      objectReference: {fileID: 1120165185}
     - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
         type: 3}
       propertyPath: _levelMax
@@ -361,20 +359,10 @@ PrefabInstance:
         type: 3}
       propertyPath: _moodSprites.Array.data[0]
       value: 
-      objectReference: {fileID: 750119604}
-    - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
-        type: 3}
-      propertyPath: _moodSprites.Array.data[1]
-      value: 
-      objectReference: {fileID: 1804323222}
-    - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
-        type: 3}
-      propertyPath: _moodSprites.Array.data[2]
-      value: 
       objectReference: {fileID: 1854991040}
     - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
         type: 3}
-      propertyPath: _moodSprites.Array.data[3]
+      propertyPath: _moodSprites.Array.data[1]
       value: 
       objectReference: {fileID: 1701590035}
     - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
@@ -392,16 +380,6 @@ PrefabInstance:
       propertyPath: _endingBarBottom
       value: 
       objectReference: {fileID: 372595590552542204}
-    - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
-        type: 3}
-      propertyPath: _uiController
-      value: 
-      objectReference: {fileID: 823892838}
-    - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
-        type: 3}
-      propertyPath: _bird
-      value: 
-      objectReference: {fileID: 1120165185}
     - target: {fileID: 7071927650890313790, guid: 34834f965abecae499e40effb4b6bd60,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -468,11 +446,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2789217198969506217, guid: 529439a180d08e445abccf99b84d051c,
         type: 3}
-      propertyPath: _invincibilityDebug
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2789217198969506217, guid: 529439a180d08e445abccf99b84d051c,
-        type: 3}
       propertyPath: _audioSource
       value: 
       objectReference: {fileID: 1319012821}
@@ -481,11 +454,6 @@ PrefabInstance:
       propertyPath: _controlsImage
       value: 
       objectReference: {fileID: 3910627001114280604}
-    - target: {fileID: 3755832729510868468, guid: 529439a180d08e445abccf99b84d051c,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 04b843c694837cf4f94dbce3c1857de8, type: 2}
     - target: {fileID: 4401166989052116202, guid: 529439a180d08e445abccf99b84d051c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -677,11 +645,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5040944474476514415, guid: 8b5be01b2a9a59645a7093bbacbe2d32,
         type: 3}
-      propertyPath: _invincibilityDebug
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5040944474476514415, guid: 8b5be01b2a9a59645a7093bbacbe2d32,
-        type: 3}
       propertyPath: _audioSource
       value: 
       objectReference: {fileID: 1319012821}
@@ -779,21 +742,6 @@ PrefabInstance:
       propertyPath: _audioSource
       value: 
       objectReference: {fileID: 1319012821}
-    - target: {fileID: 5161064861306411118, guid: ec88de4dce4ed444e86ebf434ff072f7,
-        type: 3}
-      propertyPath: _enterSFX
-      value: 
-      objectReference: {fileID: 8300000, guid: 33d944c05f753564db41aacefd32d32f, type: 3}
-    - target: {fileID: 5161064861306411118, guid: ec88de4dce4ed444e86ebf434ff072f7,
-        type: 3}
-      propertyPath: _speed
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5161064861306411118, guid: ec88de4dce4ed444e86ebf434ff072f7,
-        type: 3}
-      propertyPath: _diveSpeed
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 8081386578481667562, guid: ec88de4dce4ed444e86ebf434ff072f7,
         type: 3}
       propertyPath: m_LocalPosition.x
