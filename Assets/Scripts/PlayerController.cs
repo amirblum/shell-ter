@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    private bool _isInShell = true;
+    private bool _isInShell = false;
     private bool _wantsToBeInShell = true;
     private bool _shellForced;
     [SerializeField] float _shellForcedTime;
@@ -69,7 +69,6 @@ public class PlayerController : MonoBehaviour
         {
             IsInShell = false;
         }
-
     }
 
     protected void FixedUpdate()
