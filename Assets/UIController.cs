@@ -12,4 +12,9 @@ public class UIController : MonoBehaviour
         _startScreen.SetActive(true);
         _endScreen.SetActive(false);
     }
+
+    public void ShowEndScreen()
+    {
+        _endScreen.SetActive(true);
+    }
 }

@@ -145,6 +145,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2aa8f1c9cdda574799c0308729f8eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &823892838 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3911477051732497551, guid: 03c04e31681480248bb645020904b7d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 3910627001114280602}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b79ec1cd9e81180418d9bf580c4771b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &957743835 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
@@ -380,6 +392,11 @@ PrefabInstance:
       propertyPath: _endingBarBottom
       value: 
       objectReference: {fileID: 372595590552542204}
+    - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
+        type: 3}
+      propertyPath: _uiController
+      value: 
+      objectReference: {fileID: 823892838}
     - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
         type: 3}
       propertyPath: _bird

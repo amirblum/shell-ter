@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EmotionManager : MonoBehaviour
 {
+    [SerializeField] UIController _uiController;
     [SerializeField] PlayerController[] _players;
     [SerializeField] BirdController _bird;
     [SerializeField] float _yDistanctNeededToWin;
@@ -141,6 +142,8 @@ public class EmotionManager : MonoBehaviour
         {
             player.StopPhysics();
         }
+
+        _uiController.ShowEndScreen();
 
         // todo bird-go-away, clouds, etc.
     }
