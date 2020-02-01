@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,6 +36,15 @@ public class EmotionManager : MonoBehaviour
 
     protected void Update()
     {
+        if (Input.GetKeyDown(KeyCode.LeftBracket))
+        {
+            Time.timeScale--;
+        }
+        else if (Input.GetKeyDown(KeyCode.RightBracket))
+        {
+            Time.timeScale++;
+        }
+
         if (_isInEnding) return;
 
         var numOutOfShell = 0;
