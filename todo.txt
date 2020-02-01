@@ -1,0 +1,15 @@
+todo:
+
+- Flip over snail
+- Break shell?
+- New hit animation (different from hide animation)
+- Physics fine tuning
+- Sound effects
+- Camera zoom
+- Start UI
+- Win state
+- Win UI
+- Peak flag
+- Camera shake
+- Post-processing
+- Better slash
