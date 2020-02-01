@@ -236,6 +236,7 @@ MonoBehaviour:
   _shellForcedTime: 2.5
   _shellEnterTime: 0.3
   _slash: {fileID: 7450725442178852007}
+  _invincibilityDebug: 0
   _forwardKey: 0
   _breakShellKey: 0
   _facingRight: 0

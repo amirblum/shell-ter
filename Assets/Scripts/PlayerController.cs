@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Spine.Unity;
 using UnityEngine;
@@ -138,5 +138,11 @@ public class PlayerController : MonoBehaviour
 
         IsInShell = true;
         _shellForced = false;
+    }
+
+    public void StopPhysics()
+    {
+        _rigidbody.bodyType = RigidbodyType2D.Kinematic;
+        IsInShell = true;
     }
 }

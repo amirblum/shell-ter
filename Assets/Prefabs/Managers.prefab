@@ -57,6 +57,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _moodColor: {r: 1, g: 0.41037738, b: 0.7522041, a: 1}
+  _endingFadeTime: 0.7
 --- !u!114 &2778069604788297002
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -53,4 +53,15 @@ public class MusicManager : MonoBehaviour
             instance_e.setParameterByID(stateParamID, (uint)currState);
         }
     }
+
+    public void PlayEnding()
+    {
+        requestedState = State.WIN_STATE;
+        // instance_e.setParameterByID(intensityParamID, intensity);
+        if (requestedState != currState)
+        {
+            currState = requestedState;
+            instance_e.setParameterByID(stateParamID, (uint)currState);
+        }
+    }
 }
