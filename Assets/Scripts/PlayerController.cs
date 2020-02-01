@@ -168,6 +168,9 @@ public class PlayerController : MonoBehaviour
     public void StopPhysics()
     {
         _rigidbody.bodyType = RigidbodyType2D.Kinematic;
-        IsInShell = true;
+        // TODO: consider transitioning through Love animation
+        _shellForced = true;
+        _graphics.loop = true;
+        _graphics.AnimationName = "LoveIdle";
     }
 }
