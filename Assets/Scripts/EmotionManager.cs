@@ -29,7 +29,6 @@ public class EmotionManager : MonoBehaviour
     private Vector3 _cameraEndingPos;
 
     private bool _isInEnding;
-    private bool _bothPlayersReachedEnd;
 
     protected void Start()
     {
@@ -102,15 +101,9 @@ public class EmotionManager : MonoBehaviour
 
     public void PlayerReachedEnd(PlayerController player)
     {
-        // if (_bothPlayersReachedEnd) return;
+        if (_isInEnding) return;
 
-        // if (_isInEnding)
-        // {
-        //     PlayFinalEnding();
-        //     return;
-        // }
-
-        var playerYDistance = _players[0].transform.position.y - _players[1].transform.position.y;
+        var playerYDistance = Mathf.Abs(_players[0].transform.position.y - _players[1].transform.position.y);
 
         if (playerYDistance <=_yDistanctNeededToWin)
         {
