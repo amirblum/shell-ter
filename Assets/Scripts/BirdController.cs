@@ -9,7 +9,9 @@ public class BirdController : MonoBehaviour
     private float _initialY;
     [SerializeField] float _speed = 3f;
     [SerializeField] float _diveSpeed = 20f;
-    bool _canTarget = true;
+    bool _canTarget = false;
+    bool _shouldComeIntoScene = false;
+    bool _cameIntoScene = false;
     PlayerController _target = null;
 
     void Awake()
@@ -40,7 +42,21 @@ public class BirdController : MonoBehaviour
             _target = closestPlayer;
             _canTarget = false;
         }
-        if (_target == null)
+        if (!_shouldComeIntoScene)
+        {
+            foreach (var player in _players)
+            {
+                if (Mathf.Abs(player.transform.position.x) < 5) _shouldComeIntoScene = true;
+            }
+        }
+        else if (!_cameIntoScene)
+        {
+            float distance = _speed * Time.deltaTime;
+            float x = transform.position.x + distance;
+            SetPosition(new Vector3(x, _initialY, 0));
+            _cameIntoScene = x >= -7;
+        }
+        else if (_target == null)
         {
             Hover();
         }
