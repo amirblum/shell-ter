@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EmotionManager : MonoBehaviour
 {
@@ -47,6 +48,11 @@ public class EmotionManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.RightBracket))
         {
             Time.timeScale++;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         if (_isInEnding) return;
