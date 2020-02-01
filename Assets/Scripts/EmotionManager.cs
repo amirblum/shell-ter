@@ -10,6 +10,8 @@ public class EmotionManager : MonoBehaviour
 
     [SerializeField] MusicManager _musicManager;
     [SerializeField] CameraShake _cameraShake;
+    [SerializeField] SpriteRenderer[] _moodSprites;
+    [SerializeField] Color _moodColor;
 
     protected void Update()
     {
@@ -37,5 +39,11 @@ public class EmotionManager : MonoBehaviour
 
         _musicManager.SetState(numOutOfShell, slopeIntensity);
         _cameraShake.SetShakeAmount(slopeIntensity);
+
+        var currentColor = Color.Lerp(Color.white, _moodColor, slopeIntensity);
+        foreach (var moodSprite in _moodSprites)
+        {
+            moodSprite.color = currentColor;
+        }
     }
 }

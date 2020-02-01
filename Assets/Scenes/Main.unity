@@ -121,6 +121,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!212 &750119604 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8231945189459128552, guid: 02e174421e36aad468aef82c16c743db,
+    type: 3}
+  m_PrefabInstance: {fileID: 1247098608315425882}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &763328070 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5040944474476514415, guid: 8b5be01b2a9a59645a7093bbacbe2d32,
@@ -150,6 +156,24 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 4843756859489040609, guid: 03c04e31681480248bb645020904b7d0,
     type: 3}
   m_PrefabInstance: {fileID: 3910627001114280602}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1701590035 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2532125033618517240, guid: 02e174421e36aad468aef82c16c743db,
+    type: 3}
+  m_PrefabInstance: {fileID: 1247098608315425882}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1804323222 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2516811187898537372, guid: 02e174421e36aad468aef82c16c743db,
+    type: 3}
+  m_PrefabInstance: {fileID: 1247098608315425882}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1854991040 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 604767951590163986, guid: 02e174421e36aad468aef82c16c743db,
+    type: 3}
+  m_PrefabInstance: {fileID: 1247098608315425882}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &372595590552542203
 PrefabInstance:
@@ -312,21 +336,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
-    - target: {fileID: 2778069604788297002, guid: 34834f965abecae499e40effb4b6bd60,
+    - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
         type: 3}
       propertyPath: _players.Array.data[0]
       value: 
       objectReference: {fileID: 763328070}
-    - target: {fileID: 2778069604788297002, guid: 34834f965abecae499e40effb4b6bd60,
+    - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
         type: 3}
       propertyPath: _players.Array.data[1]
       value: 
       objectReference: {fileID: 1302415472}
-    - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
-        type: 3}
-      propertyPath: _players.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
         type: 3}
       propertyPath: _levelMax
@@ -339,14 +358,24 @@ PrefabInstance:
       objectReference: {fileID: 3910627001114280603}
     - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
         type: 3}
-      propertyPath: _players.Array.data[0]
+      propertyPath: _moodSprites.Array.data[0]
       value: 
-      objectReference: {fileID: 763328070}
+      objectReference: {fileID: 750119604}
     - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
         type: 3}
-      propertyPath: _players.Array.data[1]
+      propertyPath: _moodSprites.Array.data[1]
       value: 
-      objectReference: {fileID: 1302415472}
+      objectReference: {fileID: 1804323222}
+    - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
+        type: 3}
+      propertyPath: _moodSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 1854991040}
+    - target: {fileID: 2778069604788297003, guid: 34834f965abecae499e40effb4b6bd60,
+        type: 3}
+      propertyPath: _moodSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 1701590035}
     - target: {fileID: 7071927650890313790, guid: 34834f965abecae499e40effb4b6bd60,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -44,10 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5282efb20d781d8489df1989de0b8244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _players: []
+  _players:
+  - {fileID: 0}
+  - {fileID: 0}
   _levelMax: {fileID: 0}
+  _intensityIncreaseBeginY: 1
   _musicManager: {fileID: 2778069604788297002}
   _cameraShake: {fileID: 0}
+  _moodSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _moodColor: {r: 1, g: 0.41037738, b: 0.7522041, a: 1}
 --- !u!114 &2778069604788297002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,9 +69,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f00ce3b1055510d458fed1cb32802680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slopeIntensity: 0
-  _players:
-  - {fileID: 0}
-  - {fileID: 0}
-  _maxY: 4
   requestedState: 0
