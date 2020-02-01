@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool IsCountedAsInShell
+    {
+        get
+        {
+                return _isInShell || _wantsToBeInShell;
+        }
+    }
+
     public bool IsInShell
     {
         get
@@ -21,7 +29,7 @@ public class PlayerController : MonoBehaviour
                 var shouldUseHitCollider = _isInShell && !_shellForced;
                 _defaultCollider.gameObject.SetActive(!shouldUseHitCollider);
                 _hitCollider.gameObject.SetActive(shouldUseHitCollider);
-                _graphics.loop = !IsInShell;
+                _graphics.loop = !_isInShell;
                 _graphics.AnimationName = _isInShell ? "Hide Idle" : "Crawl";
             }
         }
@@ -29,7 +37,7 @@ public class PlayerController : MonoBehaviour
     private bool _isInShell = false;
     private bool _wasJustHit = false;
     private Vector2 _upNormal = Vector2.up;
-    private bool _wantsToBeInShell = true;
+    private bool _wantsToBeInShell = false;
     private bool _shellForced;
     [SerializeField] float _shellForcedTime;
     [SerializeField] float _shellEnterTime;
@@ -63,7 +71,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_shellForced) return;
 
-        var wasOutOfShell = !IsInShell;
+        var wasOutOfShell = !_isInShell;
 
         _wantsToBeInShell = !Input.GetKey(_forwardKey);
 
@@ -105,7 +113,7 @@ public class PlayerController : MonoBehaviour
         if (bird == null) return;
         bird.ResetTarget();
 
-        if (IsInShell || _invincibilityDebug) return;
+        if (_isInShell || _invincibilityDebug) return;
 
         StartCoroutine(HitCoroutine());
         StartCoroutine(SlashCoroutine());

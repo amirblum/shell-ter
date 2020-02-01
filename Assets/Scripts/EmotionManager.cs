@@ -43,7 +43,7 @@ public class EmotionManager : MonoBehaviour
 
         foreach (var player in _players)
         {
-            if (!player.IsInShell)
+            if (!player.IsCountedAsInShell)
             {
                 numOutOfShell++;
             }
