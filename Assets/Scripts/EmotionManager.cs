@@ -124,6 +124,7 @@ public class EmotionManager : MonoBehaviour
             player.ForceForward();
         }
 
+        _musicManager.PlayEnding();
         var intensity = 1f;
         for (; intensity >= 0; intensity -= Time.deltaTime / _endingFadeTime)
         {
@@ -134,8 +135,6 @@ public class EmotionManager : MonoBehaviour
 
     public void PlayFinalEnding()
     {            
-        _musicManager.PlayEnding();
-        
         foreach (var player in _players)
         {
             player.StopPhysics();
