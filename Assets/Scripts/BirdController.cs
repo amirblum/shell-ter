@@ -5,6 +5,8 @@ using UnityEngine;
 public class BirdController : MonoBehaviour
 {
     [SerializeField] PlayerController[] _players;
+    [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioClip _enterSFX;
     private float _sequenceDirection = 1;
     private float _initialY;
     [SerializeField] float _speed = 3f;
@@ -12,6 +14,7 @@ public class BirdController : MonoBehaviour
     bool _canTarget = false;
     bool _shouldComeIntoScene = false;
     bool _cameIntoScene = false;
+    bool _playedEnterSFX = false;
     PlayerController _target = null;
 
     void Awake()
@@ -46,7 +49,10 @@ public class BirdController : MonoBehaviour
         {
             foreach (var player in _players)
             {
-                if (Mathf.Abs(player.transform.position.x) < 5) _shouldComeIntoScene = true;
+                if (Mathf.Abs(player.transform.position.x) < 5)
+                {
+                    _shouldComeIntoScene = true;
+                }
             }
         }
         else if (!_cameIntoScene)
@@ -54,7 +60,15 @@ public class BirdController : MonoBehaviour
             float distance = _speed * Time.deltaTime;
             float x = transform.position.x + distance;
             SetPosition(new Vector3(x, _initialY, 0));
-            _cameIntoScene = x >= -7;
+            if (x >= -10 && !_playedEnterSFX)
+            {
+                _audioSource.PlayOneShot(_enterSFX);
+                _playedEnterSFX = true;
+            }
+            if (x >= -7)
+            {
+                _cameIntoScene = true;
+            }
         }
         else if (_target == null)
         {

@@ -233,12 +233,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2aa8f1c9cdda574799c0308729f8eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioSource: {fileID: 0}
+  _hitSFX: {fileID: 8300000, guid: 815980e3deecd9c4b855a993d4bf811e, type: 3}
+  _moveSFX: {fileID: 8300000, guid: 4f1214be12067bd4484c22e50a51d864, type: 3}
+  _enterShellSFX: {fileID: 8300000, guid: 968b3ba181e210144b94eb02b33464a6, type: 3}
+  _exitShellSFX: {fileID: 8300000, guid: 174b78817393074438c3d0506d136b13, type: 3}
   _shellForcedTime: 2.5
   _shellEnterTime: 0.3
   _slash: {fileID: 7450725442178852007}
   _invincibilityDebug: 0
   _forwardKey: 0
-  _breakShellKey: 0
   _facingRight: 0
   _forwardThrust: 10
   _graphics: {fileID: 7885871994506206220}

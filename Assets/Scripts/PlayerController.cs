@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioClip _hitSFX;
+    [SerializeField] AudioClip _moveSFX;
+    [SerializeField] AudioClip _enterShellSFX;
+    [SerializeField] AudioClip _exitShellSFX;
     public bool IsCountedAsInShell
     {
         get
@@ -29,6 +34,8 @@ public class PlayerController : MonoBehaviour
                 var shouldUseHitCollider = _isInShell && !_shellForced;
                 _defaultCollider.gameObject.SetActive(!shouldUseHitCollider);
                 _hitCollider.gameObject.SetActive(shouldUseHitCollider);
+                _audioSource.PlayOneShot(_isInShell ? _enterShellSFX : _exitShellSFX);
+                _audioSource.PlayOneShot(_isInShell ? _enterShellSFX : _exitShellSFX);
                 _graphics.loop = !_isInShell;
                 _graphics.AnimationName = _isInShell ? "Hide Idle" : "Crawl";
             }
@@ -135,6 +142,7 @@ public class PlayerController : MonoBehaviour
         _wasJustHit = true;
         _graphics.loop = false;
         _graphics.AnimationName = "DMG";
+        _audioSource.PlayOneShot(_hitSFX);
 
         yield return new WaitForSeconds(_shellForcedTime);
 
