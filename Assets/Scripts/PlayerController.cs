@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Spine.Unity;
 using UnityEngine;
@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Defense/Hit")]
     [SerializeField] SpriteRenderer _slash;
+    [SerializeField] bool _invincibilityDebug;
 
     [Header("Controls")]
     [SerializeField] KeyCode _forwardKey;
@@ -90,7 +91,7 @@ public class PlayerController : MonoBehaviour
         if (bird == null) return;
         bird.ResetTarget();
 
-        if (IsInShell) return;
+        if (IsInShell || _invincibilityDebug) return;
 
         StartCoroutine(HitCoroutine());
         StartCoroutine(SlashCoroutine());
