@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Spine.Unity;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -55,6 +57,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Controls")]
     [SerializeField] KeyCode _forwardKey;
+    [SerializeField] Image _controlsImage;
+    private bool _movedOnce;
 
     [Header("Movement")]
     [SerializeField] bool _facingRight;
@@ -81,6 +85,11 @@ public class PlayerController : MonoBehaviour
         var wasOutOfShell = !_isInShell;
 
         _wantsToBeInShell = !(Input.GetKey(_forwardKey) || _forceForward);
+        if (!_wantsToBeInShell && !_movedOnce)
+        {
+            _movedOnce = true;
+            StartCoroutine(ControlsFadeOutCoroutine());
+        }
 
         if (wasOutOfShell && _wantsToBeInShell)
         {
@@ -89,6 +98,18 @@ public class PlayerController : MonoBehaviour
         else if (!_wantsToBeInShell)
         {
             IsInShell = false;
+        }
+    }
+
+    private IEnumerator ControlsFadeOutCoroutine()
+    {
+        var fadeOutTime = 0.5f;
+        var color = Color.white;
+        for (; fadeOutTime >= 0; fadeOutTime -= Time.deltaTime)
+        {
+            color.a = fadeOutTime / 0.5f;
+            _controlsImage.color = color;
+            yield return null;
         }
     }
 
