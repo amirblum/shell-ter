@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Controls")]
     [SerializeField] KeyCode _forwardKey;
-    [SerializeField] KeyCode _breakShellKey;
 
     [Header("Movement")]
     [SerializeField] bool _facingRight;
