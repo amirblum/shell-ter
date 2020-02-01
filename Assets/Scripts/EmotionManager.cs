@@ -16,7 +16,23 @@ public class EmotionManager : MonoBehaviour
 
     [SerializeField] float _endingFadeTime;
 
+    [Header("CameraZoom")]
+    [SerializeField] float _zoomFromPercent;
+    [SerializeField] Transform _cameraHolder;
+    [SerializeField] float _blackBarPercent = 0.3f;
+    [SerializeField] RectTransform _endingBarTop;
+    [SerializeField] RectTransform _endingBarBottom;
+    [SerializeField] float _cameraEndingY;
+    private Vector3 _cameraDefaultPos;
+    private Vector3 _cameraEndingPos;
+
     private bool _isInEnding;
+
+    protected void Start()
+    {
+        _cameraDefaultPos = _cameraHolder.position;
+        _cameraEndingPos = new Vector3(_cameraDefaultPos.x, _cameraEndingY, _cameraDefaultPos.z);
+    }
 
     protected void Update()
     {
@@ -46,6 +62,7 @@ public class EmotionManager : MonoBehaviour
 
         _musicManager.SetState(numOutOfShell, slopeIntensity);
         SetIntensity(slopeIntensity);
+        CameraZoom(slopeIntensity);
     }
 
     private void SetIntensity(float slopeIntensity)
@@ -57,6 +74,14 @@ public class EmotionManager : MonoBehaviour
         {
             moodSprite.color = currentColor;
         }
+    }
+
+    private void CameraZoom(float slopeIntensity)
+    {
+        var cameraZoomLerp = Mathf.Clamp01((slopeIntensity - _zoomFromPercent) / (1f - _zoomFromPercent));
+        _endingBarTop.anchorMin = new Vector2(0f, Mathf.Lerp(1f, 1f - _blackBarPercent, cameraZoomLerp));
+        _endingBarBottom.anchorMax = new Vector2(1f, Mathf.Lerp(0f, _blackBarPercent, cameraZoomLerp));
+        _cameraHolder.transform.position = Vector3.Lerp(_cameraDefaultPos, _cameraEndingPos, cameraZoomLerp);
     }
 
     public void TriggerEnding()

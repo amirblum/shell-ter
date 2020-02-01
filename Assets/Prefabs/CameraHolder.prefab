@@ -141,4 +141,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0698026664a737347a198f9cc38bf1e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxShakeAmount: 2
+  _maxShakeAmount: 0.05
