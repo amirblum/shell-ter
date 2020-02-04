@@ -57,16 +57,10 @@ public class EmotionManager : MonoBehaviour
 
         if (_isInEnding) return;
 
-        var numOutOfShell = 0;
         var sumY = 0f;
 
         foreach (var player in _players)
         {
-            if (!player.IsCountedAsInShell)
-            {
-                numOutOfShell++;
-            }
-            
             sumY += player.transform.position.y;
         }
 
@@ -83,7 +77,7 @@ public class EmotionManager : MonoBehaviour
         slopeIntensity = Mathf.Min(1, slopeIntensity);
         // Debug.Log(slopeIntensity);
 
-        _musicManager.SetState(numOutOfShell, slopeIntensity);
+        _musicManager.SetState(0, slopeIntensity);
         SetIntensity(slopeIntensity);
         CameraZoom(cameraSlopeIntensity);
     }
