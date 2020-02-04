@@ -238,11 +238,13 @@ MonoBehaviour:
   _moveSFX: {fileID: 8300000, guid: 4f1214be12067bd4484c22e50a51d864, type: 3}
   _enterShellSFX: {fileID: 8300000, guid: 968b3ba181e210144b94eb02b33464a6, type: 3}
   _exitShellSFX: {fileID: 8300000, guid: 174b78817393074438c3d0506d136b13, type: 3}
-  _shellForcedTime: 2.5
+  _invicibilityTime: 2
   _shellEnterTime: 0.3
+  _shellExitTime: 0.3
   _slash: {fileID: 7450725442178852007}
   _invincibilityDebug: 0
   _forwardKey: 0
+  _controlsImage: {fileID: 0}
   _facingRight: 0
   _forwardThrust: 10
   _graphics: {fileID: 7885871994506206220}

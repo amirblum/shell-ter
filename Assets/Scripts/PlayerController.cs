@@ -12,44 +12,105 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioClip _moveSFX;
     [SerializeField] AudioClip _enterShellSFX;
     [SerializeField] AudioClip _exitShellSFX;
-    public bool IsCountedAsInShell
+
+    public enum State
+    {
+        IDLE,
+        GETTING_IN_SHELL,
+        IN_SHELL,
+        GETTING_OUT_OF_SHELL,
+        MOVING,
+        HIT,
+        ABOUT_TO_LOVE,
+        LOVING,
+    }
+
+    private State _state;
+    private bool _invincible;
+    private bool _controlsDisabled = false;
+
+    public bool invincible
     {
         get
         {
-                return _isInShell || _wantsToBeInShell;
+            return _invincible || _invincibilityDebug;
         }
     }
 
-    public bool IsInShell
+    public State state
     {
         get
         {
-            return _isInShell;
+            return _state;
         }
-        private set
+        set
         {
-            var wasInShell = _isInShell;
-            _isInShell = value;
-
-            if (wasInShell != _isInShell)
+            switch (value)
             {
-                var shouldUseHitCollider = _isInShell && !_shellForced;
-                _defaultCollider.gameObject.SetActive(!shouldUseHitCollider);
-                _hitCollider.gameObject.SetActive(shouldUseHitCollider);
-                _audioSource.PlayOneShot(_isInShell ? _enterShellSFX : _exitShellSFX);
-                _audioSource.PlayOneShot(_isInShell ? _enterShellSFX : _exitShellSFX);
-                _graphics.loop = !_isInShell;
-                _graphics.AnimationName = _isInShell ? "Hide Idle" : "Crawl";
+                case State.IDLE:
+                    _graphics.loop = true;
+                    _graphics.AnimationName = "Idle";
+                    break;
+                case State.GETTING_IN_SHELL:
+                    _audioSource.PlayOneShot(_enterShellSFX);
+                    _graphics.loop = false;
+                    _graphics.timeScale = 0.2f;
+                    _graphics.AnimationName = "Hide In";
+                    break;
+                case State.IN_SHELL:
+                    _graphics.loop = true;
+                    _graphics.timeScale = 1f;
+                    _graphics.AnimationName = "Hide Idle";
+                    break;
+                case State.GETTING_OUT_OF_SHELL:
+                    _audioSource.PlayOneShot(_exitShellSFX);
+                    _graphics.loop = false;
+                    _graphics.AnimationName = "Hide Out";
+                    break;
+                case State.MOVING:
+                    SetCollider(ColliderState.DEFAULT);
+                    // TODO: loop crawl sound
+                    _graphics.loop = true;
+                    _graphics.AnimationName = "Crawl";
+                    break;
+                case State.HIT:
+                    SetCollider(ColliderState.SHELL);
+                    _audioSource.PlayOneShot(_hitSFX);
+                    _graphics.loop = false;
+                    _graphics.AnimationName = "DMG";
+                    break;
+                case State.ABOUT_TO_LOVE:
+                    _graphics.loop = false;
+                    _graphics.AnimationName = "Love";
+                    break;
+                case State.LOVING:
+                    _graphics.loop = false;
+                    _graphics.AnimationName = "LoveIdle";
+                    break;
             }
+            _state = value;
         }
     }
-    private bool _isInShell = false;
-    private bool _wasJustHit = false;
+
+    protected enum ColliderState
+    {
+        DEFAULT,
+        SHELL,
+    }
+
+    protected void SetCollider(ColliderState state)
+    {
+        var shouldUseHitCollider = state == ColliderState.SHELL;
+        _defaultCollider.gameObject.SetActive(!shouldUseHitCollider);
+        _hitCollider.gameObject.SetActive(shouldUseHitCollider);
+    }
+
     private Vector2 _upNormal = Vector2.up;
-    private bool _wantsToBeInShell = false;
-    private bool _shellForced;
-    [SerializeField] float _shellForcedTime;
+
+    [Header("Timing")]
+    [SerializeField] float _invicibilityTime;
     [SerializeField] float _shellEnterTime;
+    [SerializeField] float _shellExitTime;
 
     [Header("Defense/Hit")]
     [SerializeField] SpriteRenderer _slash;
@@ -63,7 +124,9 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] bool _facingRight;
     [SerializeField] float _forwardThrust;
+    private bool _wasJustHit;
     private bool _forceForward;
+    private IEnumerator _activeStateChangeRoutine;
 
     [Header("States")]
     [SerializeField] SkeletonAnimation _graphics;
@@ -76,29 +139,32 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _slash.enabled = false;
+        state = State.IDLE;
+        StartStateChangeCoroutine(GetInShell());
     }
 
-    protected void Update()
+    protected void StartStateChangeCoroutine(IEnumerator routine)
     {
-        if (_shellForced) return;
-
-        var wasOutOfShell = !_isInShell;
-
-        _wantsToBeInShell = !(Input.GetKey(_forwardKey) || _forceForward);
-        if (!_wantsToBeInShell && !_movedOnce)
+        if (_activeStateChangeRoutine != null)
         {
-            _movedOnce = true;
-            StartCoroutine(ControlsFadeOutCoroutine());
+            StopCoroutine(_activeStateChangeRoutine);
         }
+        StartCoroutine(routine);
+        _activeStateChangeRoutine = routine;
+    }
 
-        if (wasOutOfShell && _wantsToBeInShell)
-        {
-            StartCoroutine(HideStuckCoroutine());
-        }
-        else if (!_wantsToBeInShell)
-        {
-            IsInShell = false;
-        }
+    protected IEnumerator GetInShell()
+    {
+        state = State.GETTING_IN_SHELL;
+        yield return new WaitForSeconds(_shellExitTime);
+        state = State.IN_SHELL;
+    }
+
+    protected IEnumerator GetOutOfShell()
+    {
+        state = State.GETTING_OUT_OF_SHELL;
+        yield return new WaitForSeconds(_shellEnterTime);
+        state = State.MOVING;
     }
 
     private IEnumerator ControlsFadeOutCoroutine()
@@ -115,24 +181,45 @@ public class PlayerController : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        if (_shellForced || _wantsToBeInShell) return;
-        if (_wasJustHit)
+        if (_controlsDisabled) return;
+        var wantsToMove = _forceForward || Input.GetKey(_forwardKey);
+        // Debug.Log($"update: {state} - {wantsToMove}");
+        if (!wantsToMove)
         {
-            transform.up = _upNormal;
-            _wasJustHit = false;
+            if (state == State.MOVING || state == State.GETTING_OUT_OF_SHELL)
+            {
+                StartStateChangeCoroutine(GetInShell());
+            }
+            return;
         }
-        else
+        switch (state)
         {
-            var directionMultiplier = _facingRight ? -1f : 1f;
-            var rightAverage = (transform.right + Vector3.right).normalized;
-            _rigidbody.AddForce(rightAverage * _forwardThrust * directionMultiplier);
+            case State.IN_SHELL:
+            case State.GETTING_IN_SHELL:
+                if (!_movedOnce)
+                {
+                    _movedOnce = true;
+                    StartCoroutine(ControlsFadeOutCoroutine());
+                }
+                StartStateChangeCoroutine(GetOutOfShell());
+                break;
+            case State.MOVING:
+                if (_wasJustHit)
+                {
+                    transform.up = _upNormal;
+                    _wasJustHit = false;
+                }
+                var directionMultiplier = _facingRight ? -1f : 1f;
+                var rightAverage = (transform.right + Vector3.right).normalized;
+                _rigidbody.AddForce(rightAverage * _forwardThrust * directionMultiplier);
+                break;
         }
     }
 
     protected void OnCollisionStay2D(Collision2D collision)
     {
         if (!(_wasJustHit && _hitCollider.gameObject.active)) return;
-        _upNormal /= collision.contacts[0].normal;
+        _upNormal = collision.contacts[0].normal;
     }
 
     protected void OnTriggerEnter2D(Collider2D collider)
@@ -142,38 +229,37 @@ public class PlayerController : MonoBehaviour
 
         bird.ResetTarget();
 
-        if (_isInShell || _invincibilityDebug) return;
+        if (invincible || state == State.IN_SHELL) return;
 
-        StartCoroutine(RollCoroutine());
+        StartStateChangeCoroutine(RollCoroutine());
         StartCoroutine(SlashCoroutine());
     }
 
     public void RollBack()
     {
-        StartCoroutine(RollCoroutine());
+        StartStateChangeCoroutine(RollCoroutine());
     }
 
     private IEnumerator RollCoroutine()
     {
-        IsInShell = true;
         var oldGravity = _rigidbody.gravityScale;
         _rigidbody.gravityScale = 2f;
-        _shellForced = true;
-        _wantsToBeInShell = true;
+        state = State.HIT;
+        _invincible = true;
         _wasJustHit = true;
-        _graphics.loop = false;
-        _graphics.AnimationName = "DMG";
-        _audioSource.PlayOneShot(_hitSFX);
+        _controlsDisabled = true;
 
-        yield return new WaitForSeconds(_shellForcedTime);
+        yield return new WaitForSeconds(_invicibilityTime);
 
-        _shellForced = false;
+        state = State.IN_SHELL;
+        _invincible = false;
+        _controlsDisabled = false;
         _rigidbody.gravityScale = oldGravity;
     }
 
     private IEnumerator SlashCoroutine()
     {
-        var slashTime = _shellForcedTime / 8f;
+        var slashTime = 0.5f;
 
         _slash.enabled = true;
         yield return new WaitForSeconds(slashTime / 3f);
@@ -182,36 +268,26 @@ public class PlayerController : MonoBehaviour
         _slash.enabled = true;
         yield return new WaitForSeconds(slashTime / 3f);
         _slash.enabled = false;
-    }
-
-    private IEnumerator HideStuckCoroutine()
-    {
-        _shellForced = true;
-        
-        _graphics.loop = false;
-        _graphics.timeScale = 0.2f;
-        _graphics.AnimationName = "Hide In";
-
-        yield return new WaitForSeconds(_shellEnterTime);
-
-        _graphics.timeScale = 1f;
-
-        IsInShell = true;
-        _shellForced = false;
     }
 
     public void StopPhysics()
     {
+        StartStateChangeCoroutine(EndCoroutine());
+    }
+
+    private IEnumerator EndCoroutine()
+    {
         _rigidbody.bodyType = RigidbodyType2D.Kinematic;
         // TODO: consider transitioning through Love animation
-        _shellForced = true;
-        _graphics.loop = true;
-        _graphics.AnimationName = "LoveIdle";
         _forceForward = false;
+        state = State.ABOUT_TO_LOVE;
+        yield return new WaitForSeconds(0.2f);
+        state = State.LOVING;
     }
 
     public void ForceForward()
     {
+        _invincible = true;
         _forceForward = true;
     }
 }

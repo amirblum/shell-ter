@@ -33,7 +33,7 @@ public class BirdController : MonoBehaviour
             float distanceToClosestPlayer = 9999; // Largest number imaginable to man
             foreach (var player in _players)
             {
-                if (player.IsInShell)
+                if (player.state == PlayerController.State.IN_SHELL)
                 {
                     continue;
                 }
