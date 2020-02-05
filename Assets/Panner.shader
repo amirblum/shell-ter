@@ -11,6 +11,9 @@
         [PerRendererData] _EnableExternalAlpha ("Enable External Alpha", Float) = 0
         _Offset ("Offset", Float) = 0
         _Speed ("Speed", Float) = 1
+        _SwirlSpeed ("Swirl Speed", Float) = 1
+        _SwirlAmount ("Swirl Amount", Float) = 0.05
+        _FlowMap ("Flow Map", 2D) = "white" {}
     }
 
     SubShader
@@ -42,13 +45,20 @@
 
             float _Offset;
             float _Speed;
+            float _SwirlSpeed;
+            float _SwirlAmount;
+            sampler2D _FlowMap;
 
             fixed4 frag(v2f IN) : SV_Target
             {
                 float2 offset;
-                offset.x = (1 + sin(_Time * _Speed)) / 2 + _Offset;
+                offset.x = _Time * _Speed + _Offset;
                 offset.y = 0;
-                fixed4 c = SampleSpriteTexture ((IN.texcoord + offset) % 1) * IN.color;
+                fixed4 sampled = tex2D (_FlowMap, IN.texcoord);
+                float2 mixed = lerp(IN.texcoord, sampled.rg, (1 + sin(_Time * _SwirlSpeed)) / 2 * _SwirlAmount);
+                float2 uv = (mixed + offset) % 1;
+                fixed4 c = SampleSpriteTexture (uv) * IN.color;
+                c.a *= clamp(IN.texcoord.y * 5, 0, 1);
                 c.rgb *= c.a;
                 return c;
             }
