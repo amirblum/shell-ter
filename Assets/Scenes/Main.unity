@@ -264,7 +264,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9ba5634bd535c3344a240b5838cd05fd, type: 2}
+      objectReference: {fileID: 2100000, guid: 68098b3764ecee04ab1757f13ff9ade3, type: 2}
     - target: {fileID: 2141044713503423475, guid: 02e174421e36aad468aef82c16c743db,
         type: 3}
       propertyPath: _emotionManager
@@ -348,7 +348,7 @@ PrefabInstance:
     - target: {fileID: 8886582388765420062, guid: 02e174421e36aad468aef82c16c743db,
         type: 3}
       propertyPath: m_Color.a
-      value: 0.44705883
+      value: 0.90588236
       objectReference: {fileID: 0}
     - target: {fileID: 8886582388765420062, guid: 02e174421e36aad468aef82c16c743db,
         type: 3}
@@ -369,7 +369,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 68098b3764ecee04ab1757f13ff9ade3, type: 2}
+      objectReference: {fileID: 2100000, guid: 9ba5634bd535c3344a240b5838cd05fd, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02e174421e36aad468aef82c16c743db, type: 3}
 --- !u!4 &1247098608315425883 stripped
