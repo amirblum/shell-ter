@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D _rigidbody;
 
-    protected void Awake()
+    protected void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _slash.enabled = false;
