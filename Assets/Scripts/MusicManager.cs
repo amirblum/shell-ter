@@ -43,6 +43,13 @@ public class MusicManager : MonoBehaviour
         stateParamID = stateParameterDescription.id;
     }
 
+    void OnDestroy()
+    {
+        FMOD.Studio.Bus playerBus = FMODUnity.RuntimeManager.GetBus("bus:/");
+        playerBus.stopAllEvents(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        instance_e.release();
+    }
+
     public void SetState(int numOutOfShell, float intensity)
     {
         requestedState = (State)numOutOfShell;
